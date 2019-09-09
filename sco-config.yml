@@ -1,0 +1,32 @@
+properties:
+    - key : 'server.apppath'
+      value : '/sco-server/api/v1'
+    - key : 'server.url'
+      value : 'http://127.0.0.1/'
+    - key : 'server.port'
+      value : 5000
+    - key : 'server.datadir'
+      value : '/sco-resources/data'
+    - key : 'server.logfile'
+      value : '/sco-resources/scoserv.log'
+    - key : 'mongo.db'
+      value : 'scosrv'
+    - key : 'app.name'
+      value : 'Standard Cortical Observer - Web API'
+    - key : 'app.title'
+      value : 'Standard Cortical Observer'
+    - key: 'app.doc'
+      value: 'http://127.0.0.1/sco-server/api/v1/doc'
+    - key: 'app.debug'
+      value: true
+    - key : 'home.title'
+      value : 'Welcome'
+    - key: 'home.content'
+      value: 'https://raw.githubusercontent.com/heikomuller/sco-server/master/config/homepage.html.txt'
+    - key: 'doc.pages'
+      value:
+          - id: 'software'
+            label: 'Software'
+            title: 'Software Resources'
+            sortOrder: 0,
+            resource: 'https://raw.githubusercontent.com/heikomuller/sco-server/master/config/software.html.txt'
