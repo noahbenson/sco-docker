@@ -17,7 +17,7 @@ RUN pip install --upgrade setuptools
 
 RUN conda install --yes numpy scipy matplotlib pandas
 RUN pip install pimms neuropythy
-RUN mkdir -p repos && cd repos \
+RUN mkdir -p /repos && cd /repos \
  && git clone https://github.com/noahbenson/sco \
  && git clone https://github.com/heikomuller/sco-datastore \
  && git clone https://github.com/heikomuller/sco-engine \
@@ -26,7 +26,7 @@ RUN mkdir -p repos && cd repos \
  && git clone https://github.com/heikomuller/sco-worker \
  && git clone https://github.com/heikomuller/sco-server \
  && git clone https://github.com/heikomuller/sco-ui
-RUN cd repos \
+RUN cd /repos \
  && for r in sco sco-datastore sco-engine sco-models sco-client sco-worker sco-server; \
     do cd "$r"; \
        [ -r setup.py ] && python setup.py install; \
