@@ -9,19 +9,30 @@ services:
          - "5672:5672"
          # HTTP management UI
          #- '15672:15672'
+      networks:
+         - net
 
    mongo:
       image: mongo
       ports:
          - "27017:27017"
+      networks:
+         - net
 
    sco:
       build: .
       ports:
          - "5000:5000"
+         - "8080:80"
       environment:
          AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
       depends_on:
          - mongo
          - rabbit
+      networks:
+         - net
+
+networks:
+   net:
+
 

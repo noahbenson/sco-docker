@@ -1,22 +1,23 @@
-# This Dockerfile constructs a docker image that contains an installation
-# of the popeye library.
-#
-# Example build:
-#   docker build --no-cache --tag nben/popeye `pwd`
-#
 
-FROM continuumio/anaconda:latest
+FROM httpd:2.4
 
 LABEL MAINTAINER="Noah C. Benson <nben@nyu.edu>"
 
-ENV PATH "/opt/conda/bin:$PATH"
+# Update Ububtu:
 
-RUN conda update --yes -n base conda \
- && conda install --yes -c conda-forge py4j nibabel s3fs
-RUN pip install --upgrade setuptools
+RUN apt-get update \
+ && apt-get upgrade -y \
+ && apt autoremove -y \
+ && apt-get install -y wget bzip2 emacs git python python-pip
 
-RUN conda install --yes numpy scipy matplotlib pandas
-RUN pip install pimms neuropythy
+
+# Install a few relevant libraries
+
+RUN pip install numpy scipy matplotlib scikit-image nibabel pandas pimms neuropythy
+
+
+# Install the SCO libraries
+
 RUN mkdir -p /repos && cd /repos \
  && git clone https://github.com/noahbenson/sco \
  && git clone https://github.com/heikomuller/sco-datastore \
@@ -34,7 +35,11 @@ RUN cd /repos \
        cd ..; \
     done
 
-RUN apt-get update && apt-get install -y tini
+
+# Setup the Apache data:
+
+RUN cp -RL /repos/sco-ui/src/* /usr/local/apache2/htdocs/
+COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf
 
 COPY sco-server.sh /sco-server.sh
 COPY sco-config.yml /sco-config.yml
@@ -42,4 +47,8 @@ RUN chmod 755 /sco-server.sh
 RUN mkdir -p /sco-resources/data
 
 # And mark the entrypoint
-ENTRYPOINT [ "tini", "-g", "--", "/sco-server.sh" ]
+CMD [ "/sco-server.sh" ]
+
+
+
+

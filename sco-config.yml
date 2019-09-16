@@ -1,6 +1,6 @@
 properties:
     - key : 'server.apppath'
-      value : '/repos/sco-ui/src'
+      value : '/'
     - key : 'server.url'
       value : 'http://127.0.0.1/'
     - key : 'server.port'
