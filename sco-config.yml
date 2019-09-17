@@ -2,7 +2,7 @@ properties:
     - key : 'server.apppath'
       value : '/'
     - key : 'server.url'
-      value : 'http://127.0.0.1/'
+      value : 'http://localhost'
     - key : 'server.port'
       value : 5000
     - key : 'server.datadir'
@@ -16,7 +16,7 @@ properties:
     - key : 'app.title'
       value : 'Standard Cortical Observer'
     - key: 'app.doc'
-      value: 'http://127.0.0.1/sco-server/api/v1/doc'
+      value: 'http://localhost:5000/sco-server/api/v1/doc'
     - key: 'app.debug'
       value: true
     - key : 'home.title'

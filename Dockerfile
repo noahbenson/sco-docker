@@ -20,7 +20,7 @@ RUN pip install numpy scipy matplotlib scikit-image nibabel pandas pimms neuropy
 
 RUN mkdir -p /repos && cd /repos \
  && git clone https://github.com/noahbenson/sco \
- && git clone https://github.com/heikomuller/sco-datastore \
+ && git clone https://github.com/noahbenson/sco-datastore \
  && git clone https://github.com/heikomuller/sco-engine \
  && git clone https://github.com/heikomuller/sco-models \
  && git clone https://github.com/heikomuller/sco-client \
@@ -38,7 +38,15 @@ RUN cd /repos \
 
 # Setup the Apache data:
 
-RUN cp -RL /repos/sco-ui/src/* /usr/local/apache2/htdocs/
+# Fix the localhost / server name:
+RUN cd /repos/sco-ui \
+ && mv src/index.html ./orig.index.html \
+ && cat ./orig.index.html | sed 's/cds-jaw.cims.nyu.edu/localhost:5000/g' > src/index.html \
+ && cat src/index.html
+
+# Copy data over to the appropriate directories
+RUN mv /usr/local/apache2/htdocs /usr/local/apache2/orig.htdocs \
+ && cp -RL /repos/sco-ui/src /usr/local/apache2/htdocs
 COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf
 
 COPY sco-server.sh /sco-server.sh
