@@ -41,7 +41,7 @@ RUN cd /repos \
 # Fix the localhost / server name:
 RUN cd /repos/sco-ui \
  && mv src/index.html ./orig.index.html \
- && cat ./orig.index.html | sed 's/cds-jaw.cims.nyu.edu/localhost:5000/g' > src/index.html \
+ && cat ./orig.index.html | sed 's|cds-jaw.cims.nyu.edu/sco-server/api/v1/|localhost:5000/|g' > src/index.html \
  && cat src/index.html
 
 # Copy data over to the appropriate directories
